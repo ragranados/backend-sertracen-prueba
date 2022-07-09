@@ -24,7 +24,7 @@ documentoService.save = async (nombre, apellido, email, edad, foto) => {
 
 documentoService.findAll = async () => {
 
-    const result = await db.Documento.findAll();
+    const result = await db.Documento.findAll({order: [['id', 'DESC']]});
 
     if (result.length < 1) {
         return ServiceResponse(false, []);
