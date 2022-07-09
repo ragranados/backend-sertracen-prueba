@@ -7,9 +7,9 @@ const documentoController = {}
 
 documentoController.save = async (req, res, next) => {
     try {
-        const {nombre, apellido, email, edad, foto} = req.body;
+        const { nombre, apellido, email, edad, foto } = req.body;
 
-        const {status, content} = ServicioDocumento.save(nombre, apellido, email, edad, foto);
+        const { status, content } = ServicioDocumento.save(nombre, apellido, email, edad, foto);
 
         return res.status(200).json(ApiResponse(status, "Datos insertados con exito"));
     } catch (e) {
@@ -19,7 +19,7 @@ documentoController.save = async (req, res, next) => {
 
 documentoController.findAll = async (req, res, next) => {
     try {
-        const {status, content} = await ServicioDocumento.findAll();
+        const { status, content } = await ServicioDocumento.findAll();
 
         if (!status) {
             return res.status(200).json(ApiResponse(status, "No se obtuvieron resultados", content));
@@ -34,7 +34,7 @@ documentoController.findAll = async (req, res, next) => {
 documentoController.update = async (req, res, next) => {
     try {
 
-        const {status, content} = await ServicioDocumento.update(req.body);
+        const { status, content } = await ServicioDocumento.update(req.body);
 
         return res.status(200).json(ApiResponse(status, "Actualizado con exito", content));
     } catch (e) {
@@ -48,7 +48,7 @@ documentoController.delete = async (req, res, next) => {
 
         const id = req.params.id;
 
-        const {status, content} = await ServicioDocumento.delete(id);
+        const { status, content } = await ServicioDocumento.delete(id);
 
         return res.status(200).json(ApiResponse(status, "Actualizado con exito", content));
     } catch (e) {
@@ -65,9 +65,15 @@ documentoController.getImage = async (req, res, next) => {
 
     } else {
         console.log('file received');
-        return res.status(200).json(__dirname)
-        path.basename
+        return res.status(200).json(req.file.filename)
     }
+}
+
+documentoController.sendFile = async (req, res, next) => {
+
+    const { imagen } = req.params;
+
+    return res.sendFile(path.join(__dirname, `/../public/${imagen}`));
 }
 
 module.exports = documentoController;

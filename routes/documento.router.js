@@ -20,5 +20,6 @@ router.post("/guardar", controller.save);
 router.put("/actualizar", controller.update);
 router.delete("/borrar/:id", controller.delete);
 router.post("/imagen", upload.single('file'), controller.getImage);
+router.get("/archivo/:imagen", controller.sendFile);
 
 module.exports = router;
