@@ -12,7 +12,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // view engine setup
-db.sync();
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -29,6 +29,8 @@ app.use('/users', usersRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+db.sync();
 
 // error handler
 app.use(function(err, req, res, next) {
