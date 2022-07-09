@@ -1,5 +1,7 @@
 const ApiResponse = require("../responses/ApiResponse");
-const ServicioDocumento = require('../services/documento.service')
+const ServicioDocumento = require('../services/documento.service');
+var path = require('path');
+const { PassThrough } = require("stream");
 
 const documentoController = {}
 
@@ -51,6 +53,20 @@ documentoController.delete = async (req, res, next) => {
         return res.status(200).json(ApiResponse(status, "Actualizado con exito", content));
     } catch (e) {
         next(e);
+    }
+}
+
+documentoController.getImage = async (req, res, next) => {
+    if (!req.file) {
+        console.log("No file received");
+        return res.send({
+            success: false
+        });
+
+    } else {
+        console.log('file received');
+        return res.status(200).json(__dirname)
+        path.basename
     }
 }
 
